@@ -1,0 +1,1107 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "默认模块",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [],
+  "paths": {
+    "/api/bookmarks": {
+      "get": {
+        "summary": "书签列表",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "keyword",
+            "in": "query",
+            "description": "内容查询关键字, 查询范围：url、title、excerpt、content",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tags",
+            "in": "query",
+            "description": "tag列表，使用英文的逗号分隔多个tag，tag name全匹配",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "页码",
+            "required": true,
+            "example": "1",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "description": "每页记录数",
+            "required": false,
+            "example": "10",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50Ijp7ImlkIjoyLCJ1c2VybmFtZSI6ImxpdXl1bmxvbmciLCJvd25lciI6dHJ1ZSwiY29uZmlnIjp7IlNob3dJZCI6ZmFsc2UsIkxpc3RNb2RlIjpmYWxzZSwiSGlkZVRodW1ibmFpbCI6ZmFsc2UsIkhpZGVFeGNlcnB0IjpmYWxzZSwiVGhlbWUiOiIiLCJLZWVwTWV0YWRhdGEiOmZhbHNlLCJVc2VBcmNoaXZlIjpmYWxzZSwiQ3JlYXRlRWJvb2siOmZhbHNlLCJNYWtlUHVibGljIjpmYWxzZX19LCJleHAiOjE3NjIxODAxNTJ9.diTHXmtGcJwYPPQJs9skO7TYyCL8BZsN1WYGMv4UgDo",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "example": "application/json",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "DNT",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "example": "1",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Cookie",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "example": "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50Ijp7ImlkIjoyLCJ1c2VybmFtZSI6ImxpdXl1bmxvbmciLCJvd25lciI6dHJ1ZSwiY29uZmlnIjp7IlNob3dJZCI6ZmFsc2UsIkxpc3RNb2RlIjpmYWxzZSwiSGlkZVRodW1ibmFpbCI6ZmFsc2UsIkhpZGVFeGNlcnB0IjpmYWxzZSwiVGhlbWUiOiIiLCJLZWVwTWV0YWRhdGEiOmZhbHNlLCJVc2VBcmNoaXZlIjpmYWxzZSwiQ3JlYXRlRWJvb2siOmZhbHNlLCJNYWtlUHVibGljIjpmYWxzZX19LCJleHAiOjE3NjIxODAxNTJ9.diTHXmtGcJwYPPQJs9skO7TYyCL8BZsN1WYGMv4UgDo",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "text/plain": {
+              "schema": {
+                "type": "string"
+              },
+              "examples": {}
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "msg": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "rows": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "is_archive": {
+                                "type": "boolean",
+                                "description": "是否已归档"
+                              },
+                              "created_at": {
+                                "type": "integer",
+                                "description": "创建时间"
+                              },
+                              "updated_at": {
+                                "type": "integer",
+                                "description": "最后更新时间"
+                              },
+                              "author": {
+                                "type": "string",
+                                "description": "作者"
+                              },
+                              "id": {
+                                "type": "integer"
+                              },
+                              "url": {
+                                "type": "string",
+                                "description": "内容的原文地址"
+                              },
+                              "title": {
+                                "type": "string",
+                                "description": "标题"
+                              },
+                              "excerpt": {
+                                "type": "string",
+                                "description": "摘录，可以是自定的概述"
+                              },
+                              "tags": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "integer"
+                                    },
+                                    "name": {
+                                      "type": "string",
+                                      "description": "tag名称"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "total": {
+                          "type": "integer",
+                          "description": "总记录数"
+                        }
+                      },
+                      "required": [
+                        "rows",
+                        "total"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "data",
+                    "msg"
+                  ]
+                },
+                "example": {
+                  "code": 0,
+                  "data": {
+                    "rows": [
+                      {
+                        "author": "作者： 阮一峰",
+                        "is_archive": false,
+                        "created_at": 122333,
+                        "excerpt": "智谱和 Anthropic 都发了最强编程模型 - 阮一峰的网络日志",
+                        "id": 1,
+                        "updated_at": 1222,
+                        "tags": [
+                          {
+                            "id": 1,
+                            "name": "blog"
+                          }
+                        ],
+                        "title": "一天之内，智谱和 Anthropic 都发了最强编程模型 - 阮一峰的网络日志",
+                        "url": "https://www.ruanyifeng.com/blog/2025/10/glm-4.6.html"
+                      }
+                    ],
+                    "total": 10
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      },
+      "put": {
+        "summary": "编辑书签",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50Ijp7ImlkIjoyLCJ1c2VybmFtZSI6ImxpdXl1bmxvbmciLCJvd25lciI6dHJ1ZSwiY29uZmlnIjp7IlNob3dJZCI6ZmFsc2UsIkxpc3RNb2RlIjpmYWxzZSwiSGlkZVRodW1ibmFpbCI6ZmFsc2UsIkhpZGVFeGNlcnB0IjpmYWxzZSwiVGhlbWUiOiIiLCJLZWVwTWV0YWRhdGEiOmZhbHNlLCJVc2VBcmNoaXZlIjpmYWxzZSwiQ3JlYXRlRWJvb2siOmZhbHNlLCJNYWtlUHVibGljIjpmYWxzZX19LCJleHAiOjE3NjIyNTcyMTR9.z7Q28p6WBURcHomFGUSG55-H93zRieK4SBxCJFnHvdU",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "example": "application/json",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "DNT",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "example": "1",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Cookie",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "example": "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50Ijp7ImlkIjoyLCJ1c2VybmFtZSI6ImxpdXl1bmxvbmciLCJvd25lciI6dHJ1ZSwiY29uZmlnIjp7IlNob3dJZCI6ZmFsc2UsIkxpc3RNb2RlIjpmYWxzZSwiSGlkZVRodW1ibmFpbCI6ZmFsc2UsIkhpZGVFeGNlcnB0IjpmYWxzZSwiVGhlbWUiOiIiLCJLZWVwTWV0YWRhdGEiOmZhbHNlLCJVc2VBcmNoaXZlIjpmYWxzZSwiQ3JlYXRlRWJvb2siOmZhbHNlLCJNYWtlUHVibGljIjpmYWxzZX19LCJleHAiOjE3NjIyNTcyMTR9.z7Q28p6WBURcHomFGUSG55-H93zRieK4SBxCJFnHvdU",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "author": {
+                    "type": "string"
+                  },
+                  "create_archive": {
+                    "type": "boolean"
+                  },
+                  "excerpt": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "integer"
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "url": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "author",
+                  "create_archive",
+                  "excerpt",
+                  "id",
+                  "tags",
+                  "title",
+                  "url"
+                ]
+              },
+              "example": {
+                "author": "作者： 阮一峰",
+                "create_archive": false,
+                "create_ebook": false,
+                "createdAt": "2025-10-04 15:19:34",
+                "excerpt": "智谱和 Anthropic 都发了最强编程模型 - 阮一峰的网络日志2",
+                "hasArchive": true,
+                "hasContent": true,
+                "hasEbook": false,
+                "id": 1,
+                "imageURL": "",
+                "modifiedAt": "2025-10-04 15:26:17",
+                "public": 0,
+                "tags": [
+                  {
+                    "name": "blog"
+                  }
+                ],
+                "title": "一天之内，智谱和 Anthropic 都发了最强编程模型 - 阮一峰的网络日志",
+                "url": "https://www.ruanyifeng.com/blog/2025/10/glm-4.6.html"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/bookmark": {
+      "post": {
+        "summary": "创建书签",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50Ijp7ImlkIjoyLCJ1c2VybmFtZSI6ImxpdXl1bmxvbmciLCJvd25lciI6dHJ1ZSwiY29uZmlnIjp7IlNob3dJZCI6ZmFsc2UsIkxpc3RNb2RlIjpmYWxzZSwiSGlkZVRodW1ibmFpbCI6ZmFsc2UsIkhpZGVFeGNlcnB0IjpmYWxzZSwiVGhlbWUiOiIiLCJLZWVwTWV0YWRhdGEiOmZhbHNlLCJVc2VBcmNoaXZlIjpmYWxzZSwiQ3JlYXRlRWJvb2siOmZhbHNlLCJNYWtlUHVibGljIjpmYWxzZX19LCJleHAiOjE3NjIyNTcyMTR9.z7Q28p6WBURcHomFGUSG55-H93zRieK4SBxCJFnHvdU",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "example": "application/json",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "DNT",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "example": "1",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Cookie",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "example": "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50Ijp7ImlkIjoyLCJ1c2VybmFtZSI6ImxpdXl1bmxvbmciLCJvd25lciI6dHJ1ZSwiY29uZmlnIjp7IlNob3dJZCI6ZmFsc2UsIkxpc3RNb2RlIjpmYWxzZSwiSGlkZVRodW1ibmFpbCI6ZmFsc2UsIkhpZGVFeGNlcnB0IjpmYWxzZSwiVGhlbWUiOiIiLCJLZWVwTWV0YWRhdGEiOmZhbHNlLCJVc2VBcmNoaXZlIjpmYWxzZSwiQ3JlYXRlRWJvb2siOmZhbHNlLCJNYWtlUHVibGljIjpmYWxzZX19LCJleHAiOjE3NjIyNTcyMTR9.z7Q28p6WBURcHomFGUSG55-H93zRieK4SBxCJFnHvdU",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "description": "书签原文地址"
+                  },
+                  "title": {
+                    "type": "string",
+                    "description": "书签标题"
+                  },
+                  "excerpt": {
+                    "type": "string",
+                    "description": "简述"
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "description": "tag"
+                        }
+                      }
+                    }
+                  },
+                  "create_archive": {
+                    "type": "boolean",
+                    "description": "是否创建归档"
+                  }
+                },
+                "required": [
+                  "url",
+                  "title",
+                  "excerpt",
+                  "tags",
+                  "create_archive"
+                ]
+              },
+              "example": {
+                "url": "https://blog.csdn.net/qq_42292831/article/details/88805549",
+                "title": "test12",
+                "excerpt": "2222",
+                "public": 0,
+                "tags": [
+                  {
+                    "name": "bookmark"
+                  }
+                ],
+                "create_archive": false
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "msg": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "msg"
+                  ]
+                },
+                "example": {
+                  "code": 0,
+                  "msg": ""
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      },
+      "delete": {
+        "summary": "删除书签",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50Ijp7ImlkIjoyLCJ1c2VybmFtZSI6ImxpdXl1bmxvbmciLCJvd25lciI6dHJ1ZSwiY29uZmlnIjp7IlNob3dJZCI6ZmFsc2UsIkxpc3RNb2RlIjpmYWxzZSwiSGlkZVRodW1ibmFpbCI6ZmFsc2UsIkhpZGVFeGNlcnB0IjpmYWxzZSwiVGhlbWUiOiIiLCJLZWVwTWV0YWRhdGEiOmZhbHNlLCJVc2VBcmNoaXZlIjpmYWxzZSwiQ3JlYXRlRWJvb2siOmZhbHNlLCJNYWtlUHVibGljIjpmYWxzZX19LCJleHAiOjE3NjIyNTcyMTR9.z7Q28p6WBURcHomFGUSG55-H93zRieK4SBxCJFnHvdU",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "example": "application/json",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "DNT",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "example": "1",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Cookie",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "example": "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50Ijp7ImlkIjoyLCJ1c2VybmFtZSI6ImxpdXl1bmxvbmciLCJvd25lciI6dHJ1ZSwiY29uZmlnIjp7IlNob3dJZCI6ZmFsc2UsIkxpc3RNb2RlIjpmYWxzZSwiSGlkZVRodW1ibmFpbCI6ZmFsc2UsIkhpZGVFeGNlcnB0IjpmYWxzZSwiVGhlbWUiOiIiLCJLZWVwTWV0YWRhdGEiOmZhbHNlLCJVc2VBcmNoaXZlIjpmYWxzZSwiQ3JlYXRlRWJvb2siOmZhbHNlLCJNYWtlUHVibGljIjpmYWxzZX19LCJleHAiOjE3NjIyNTcyMTR9.z7Q28p6WBURcHomFGUSG55-H93zRieK4SBxCJFnHvdU",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                }
+              },
+              "example": [
+                2
+              ]
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "msg": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "msg"
+                  ]
+                },
+                "example": {
+                  "code": 0,
+                  "msg": "删除成功"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/bookmark/{id}/content": {
+      "get": {
+        "summary": "查看内容",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "书签的id",
+            "required": true,
+            "example": 1,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "description": "0:成功，>0:失败"
+                    },
+                    "msg": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "url": {
+                          "type": "string",
+                          "description": "书签原文地址"
+                        },
+                        "title": {
+                          "type": "string",
+                          "description": "标题"
+                        },
+                        "html": {
+                          "type": "string",
+                          "description": "内容"
+                        },
+                        "created_at": {
+                          "type": "integer",
+                          "description": "创建时间"
+                        },
+                        "update_at": {
+                          "type": "integer",
+                          "description": "最近更新时间"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "title",
+                        "url",
+                        "html",
+                        "created_at",
+                        "update_at"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "msg",
+                    "data"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/v1/bookmarks/import": {
+      "post": {
+        "summary": "批量导入书签",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "bookmark_file": {
+                    "description": "文件后缀*.html",
+                    "example": "",
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "examples": {}
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "description": "0:成功，>0:失败"
+                    },
+                    "msg": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {}
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "msg",
+                    "data"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/tags": {
+      "get": {
+        "summary": "tag列表",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "description": "按名称查询tag",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50Ijp7ImlkIjoyLCJ1c2VybmFtZSI6ImxpdXl1bmxvbmciLCJvd25lciI6dHJ1ZSwiY29uZmlnIjp7IlNob3dJZCI6ZmFsc2UsIkxpc3RNb2RlIjpmYWxzZSwiSGlkZVRodW1ibmFpbCI6ZmFsc2UsIkhpZGVFeGNlcnB0IjpmYWxzZSwiVGhlbWUiOiIiLCJLZWVwTWV0YWRhdGEiOmZhbHNlLCJVc2VBcmNoaXZlIjpmYWxzZSwiQ3JlYXRlRWJvb2siOmZhbHNlLCJNYWtlUHVibGljIjpmYWxzZX19LCJleHAiOjE3NjIyNTcyMTR9.z7Q28p6WBURcHomFGUSG55-H93zRieK4SBxCJFnHvdU",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "example": "application/json",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "DNT",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "example": "1",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Cookie",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "example": "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50Ijp7ImlkIjoyLCJ1c2VybmFtZSI6ImxpdXl1bmxvbmciLCJvd25lciI6dHJ1ZSwiY29uZmlnIjp7IlNob3dJZCI6ZmFsc2UsIkxpc3RNb2RlIjpmYWxzZSwiSGlkZVRodW1ibmFpbCI6ZmFsc2UsIkhpZGVFeGNlcnB0IjpmYWxzZSwiVGhlbWUiOiIiLCJLZWVwTWV0YWRhdGEiOmZhbHNlLCJVc2VBcmNoaXZlIjpmYWxzZSwiQ3JlYXRlRWJvb2siOmZhbHNlLCJNYWtlUHVibGljIjpmYWxzZX19LCJleHAiOjE3NjIyNTcyMTR9.z7Q28p6WBURcHomFGUSG55-H93zRieK4SBxCJFnHvdU",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "text/plain": {
+              "schema": {
+                "type": "string"
+              },
+              "examples": {}
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "msg": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "标签名称"
+                          },
+                          "count": {
+                            "type": "integer",
+                            "description": "绑定标签的文档数量"
+                          }
+                        },
+                        "required": [
+                          "count",
+                          "id",
+                          "name"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "msg",
+                    "data"
+                  ]
+                },
+                "example": {
+                  "code": 0,
+                  "msg": "",
+                  "data": [
+                    {
+                      "count": 1,
+                      "id": 1,
+                      "name": "blog"
+                    },
+                    {
+                      "count": 1,
+                      "id": 2,
+                      "name": "bookmark"
+                    }
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/v1/tag/{id}": {
+      "put": {
+        "summary": "tag重命名",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "tag id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+              },
+              "example": {
+                "name": ""
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "description": "0:成功，>0:失败"
+                    },
+                    "msg": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {}
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "msg",
+                    "data"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/v1/auth/login": {
+      "get": {
+        "summary": "用户登录",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "pwd": {
+                    "type": "string"
+                  },
+                  "captcha": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "username",
+                  "pwd",
+                  "captcha"
+                ],
+                "description": "用户名"
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "msg": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "username": {
+                          "type": "string"
+                        },
+                        "token": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "username",
+                        "token"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "msg",
+                    "data"
+                  ]
+                },
+                "example": {
+                  "code": 0,
+                  "msg": "",
+                  "data": {
+                    "id": 1,
+                    "username": "",
+                    "token": ""
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/v1/captcha": {
+      "get": {
+        "summary": "获取图形验证码",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "msg": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "captcha": {
+                          "type": "string",
+                          "description": "图形验证码，base64编码"
+                        }
+                      },
+                      "required": [
+                        "captcha"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "msg",
+                    "data"
+                  ]
+                },
+                "example": {
+                  "code": 0,
+                  "msg": "",
+                  "data": {
+                    "captcha": ""
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "components": {
+    "schemas": {},
+    "securitySchemes": {}
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "开发环境"
+    }
+  ],
+  "security": []
+}

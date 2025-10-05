@@ -1,0 +1,17 @@
+server:
+  port: 8081
+
+log:
+  level: info
+
+mysql:
+  host: 127.0.0.1
+  port: 3306
+  user: root
+  password: root
+  database: bk_kms
+
+
+jwt:
+  secret: secretssssiwmiiu227m2
+  exp: 1h
