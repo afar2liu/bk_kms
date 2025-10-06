@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>清除存储</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 100px auto;
+            padding: 20px;
+            text-align: center;
+        }
+        .btn {
+            padding: 12px 24px;
+            background: #1890ff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+        }
+        .btn:hover {
+            background: #40a9ff;
+        }
+        .success {
+            color: #52c41a;
+            margin-top: 20px;
+        }
+        .info {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧹 清除浏览器存储</h1>
+    <p>如果页面出现错误，可以点击下面的按钮清除存储数据</p>
+    
+    <button class="btn" onclick="clearStorage()">清除所有存储</button>
+    <button class="btn" onclick="window.location.href='/'">返回首页</button>
+    
+    <div id="result"></div>
+    
+    <div class="info">
+        <h3>当前存储内容：</h3>
+        <pre id="storage-content"></pre>
+    </div>
+
+    <script>
+        function showStorage() {
+            const content = {
+                token: localStorage.getItem('bk_kms_token'),
+                userInfo: localStorage.getItem('bk_kms_user_info')
+            };
+            document.getElementById('storage-content').textContent = JSON.stringify(content, null, 2);
+        }
+
+        function clearStorage() {
+            // 清除所有 bk_kms 相关的存储
+            localStorage.removeItem('bk_kms_token');
+            localStorage.removeItem('bk_kms_user_info');
+            
+            // 显示成功消息
+            document.getElementById('result').innerHTML = 
+                '<div class="success">✅ 存储已清除！请刷新页面或返回首页。</div>';
+            
+            // 更新显示
+            showStorage();
+            
+            // 3秒后自动跳转
+            setTimeout(() => {
+                window.location.href = '/';
+            }, 3000);
+        }
+
+        // 页面加载时显示当前存储
+        showStorage();
+    </script>
+</body>
+</html>
