@@ -7,7 +7,7 @@
   },
   "tags": [],
   "paths": {
-    "/api/bookmarks": {
+    "/api/v1/bookmarks": {
       "get": {
         "summary": "书签列表",
         "deprecated": false,
@@ -223,7 +223,11 @@
             "headers": {}
           }
         },
-        "security": []
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
       },
       "put": {
         "summary": "编辑书签",
@@ -349,7 +353,11 @@
             "headers": {}
           }
         },
-        "security": []
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
       }
     },
     "/api/bookmark": {
@@ -488,7 +496,11 @@
             "headers": {}
           }
         },
-        "security": []
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
       },
       "delete": {
         "summary": "删除书签",
@@ -582,10 +594,14 @@
             "headers": {}
           }
         },
-        "security": []
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
       }
     },
-    "/bookmark/{id}/content": {
+    "/api/v1/bookmark/{id}/content": {
       "get": {
         "summary": "查看内容",
         "deprecated": false,
@@ -666,16 +682,41 @@
             "headers": {}
           }
         },
-        "security": []
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
       }
     },
     "/api/v1/bookmarks/import": {
       "post": {
-        "summary": "批量导入书签",
+        "summary": "批量导入书签(SSE流式响应)",
         "deprecated": false,
         "description": "",
         "tags": [],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "generate_tag",
+            "in": "query",
+            "description": "是否自动生成tag",
+            "required": false,
+            "example": "false",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "example": "text/event-stream",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "multipart/form-data": {
@@ -699,7 +740,7 @@
           "200": {
             "description": "",
             "content": {
-              "application/json": {
+              "text/event-stream": {
                 "schema": {
                   "type": "object",
                   "properties": {
@@ -726,10 +767,14 @@
             "headers": {}
           }
         },
-        "security": []
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
       }
     },
-    "/api/tags": {
+    "/api/v1/tags": {
       "get": {
         "summary": "tag列表",
         "deprecated": false,
@@ -863,7 +908,11 @@
             "headers": {}
           }
         },
-        "security": []
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
       }
     },
     "/api/v1/tag/{id}": {
@@ -935,7 +984,11 @@
             "headers": {}
           }
         },
-        "security": []
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
       }
     },
     "/api/v1/auth/login": {
@@ -1103,7 +1156,13 @@
   },
   "components": {
     "schemas": {},
-    "securitySchemes": {}
+    "securitySchemes": {
+      "jwt": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
   },
   "servers": [
     {
