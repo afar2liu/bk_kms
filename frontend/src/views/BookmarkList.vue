@@ -53,6 +53,9 @@
       :loading="loading"
       :pagination="pagination"
       :row-selection="rowSelection"
+      @selection-change="handleSelectionChange"
+      @select="handleSelect"
+      @select-all="handleSelectAll"
       @page-change="handlePageChange"
       @page-size-change="handlePageSizeChange"
       row-key="id"
@@ -147,25 +150,27 @@ const total = ref(0)
 
 // 选中的行
 const selectedRowKeys = ref<number[]>([])
-
 console.log('初始化 selectedRowKeys:', selectedRowKeys.value)
 
-const rowSelection = computed(() => {
-  const config = {
-    type: 'checkbox' as const,
-    showCheckedAll: true,
-    onlyCurrent: false,
-    selectedRowKeys: selectedRowKeys.value,
-    onChange: (rowKeys: number[]) => {
-      console.log('onChange 被调用，参数:', rowKeys)
-      console.log('onChange 调用前 selectedRowKeys.value:', selectedRowKeys.value)
-      selectedRowKeys.value = rowKeys
-      console.log('onChange 调用后 selectedRowKeys.value:', selectedRowKeys.value)
-    }
-  }
-  console.log('rowSelection computed 重新计算:', config)
-  return config
+// 使用简单配置，事件驱动更新，避免把数组快照传进去
+const rowSelection = reactive({
+  type: 'checkbox',
+  showCheckedAll: true,
+  onlyCurrent: false
 })
+
+function handleSelectionChange(rowKeys: number[]) {
+  console.log('[selection-change] rowKeys:', rowKeys)
+  selectedRowKeys.value = rowKeys
+}
+
+function handleSelect(rowKeys: number[], row: any) {
+  console.log('[select] rowKeys:', rowKeys, 'row:', row)
+}
+
+function handleSelectAll(checked: boolean) {
+  console.log('[select-all] checked:', checked)
+}
 
 // 对话框状态
 const importModalVisible = ref(false)
