@@ -17,7 +17,8 @@ type Config struct {
 
 // ServerConfig 服务器配置
 type ServerConfig struct {
-	Port int `yaml:"port"`
+	Port    int    `yaml:"port"`
+	GinMode string `yaml:"GIN_MODE"` // debug, release, test
 }
 
 // LogConfig 日志配置

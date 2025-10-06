@@ -12,8 +12,8 @@ type Bookmark struct {
 	Content   string    `gorm:"column:content;type:mediumtext;not null;comment:网站文本内容(去掉html标签)" json:"content"`
 	HTML      string    `gorm:"column:html;type:mediumtext;not null;comment:网站原始内容" json:"html"`
 	IsArchive bool      `gorm:"column:is_archive;type:tinyint(1);not null;default:0;comment:是否已存档,0:否，1:是" json:"is_archive"`
-	CreatedAt time.Time `gorm:"column:created_at;not null;default:CURRENT_TIMESTAMP;index:idx_created_at" json:"created_at"`
-	UpdatedAt time.Time `gorm:"column:updated_at;not null;default:CURRENT_TIMESTAMP;autoUpdateTime;index:idx_modified_at" json:"updated_at"`
+	CreatedAt time.Time `gorm:"column:created_at;not null;autoCreateTime;index:idx_created_at" json:"created_at"`
+	UpdatedAt time.Time `gorm:"column:updated_at;not null;autoUpdateTime;index:idx_modified_at" json:"updated_at"`
 
 	// 关联关系
 	Tags []Tag `gorm:"many2many:bookmark_tag;foreignKey:ID;joinForeignKey:bookmark_id;References:ID;joinReferences:tag_id" json:"tags,omitempty"`

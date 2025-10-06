@@ -30,7 +30,7 @@ go.sum
 
 # Editor/IDE
 # .idea/
-# .vscode/
+.vscode/
 
 *.code-workspace
 logs/
