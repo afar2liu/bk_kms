@@ -394,7 +394,9 @@ func (bc *BookmarkController) Import(c *gin.Context) {
 	defer fileReader.Close()
 
 	// 解析 HTML 文件
-	generateTag := c.DefaultQuery("generate_tag", "false") == "true"
+	// 从 form-data 中获取参数
+	generateTag := c.PostForm("generate_tag") == "true"
+	createArchive := c.PostForm("create_archive") == "true"
 	bookmarks, err := utils.ParseNetscapeBookmarkHTML(fileReader, generateTag)
 	if err != nil {
 		c.JSON(http.StatusOK, dto.Response{
@@ -472,7 +474,25 @@ func (bc *BookmarkController) Import(c *gin.Context) {
 			URL:       bm.URL,
 			Title:     bm.Title,
 			Tags:      tags,
-			IsArchive: false,
+			IsArchive: createArchive,
+		}
+
+		// 如果需要创建归档，则获取网页内容
+		if createArchive {
+			lib.Logger.Info("开始获取书签内容: " + bm.URL)
+			bookmarkContent, err := utils.FetchBookmarkContent(bm.URL, false, false)
+			if err != nil {
+				lib.Logger.Error("获取书签内容失败: " + err.Error())
+				// 获取内容失败不影响导入，继续使用解析到的信息
+			} else {
+				// 使用获取到的内容
+				bookmark.Title = bookmarkContent.Title
+				bookmark.Excerpt = bookmarkContent.Excerpt
+				bookmark.Author = bookmarkContent.Author
+				bookmark.Content = bookmarkContent.Content
+				bookmark.HTML = bookmarkContent.HTML
+				lib.Logger.Info("书签内容获取成功")
+			}
 		}
 
 		if err := bc.bookmarkRepo.Create(bookmark); err != nil {

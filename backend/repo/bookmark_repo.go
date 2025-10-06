@@ -19,8 +19,10 @@ func (r *BookmarkRepo) List(keyword string, tags []string, page, pageSize int) (
 
 	// 关键字搜索
 	if keyword != "" {
-		query = query.Where("url LIKE ? OR title LIKE ? OR excerpt LIKE ? OR content LIKE ?",
-			"%"+keyword+"%", "%"+keyword+"%", "%"+keyword+"%", "%"+keyword+"%")
+		query = query.Where(
+			"MATCH (url, title, excerpt, content) AGAINST (? IN BOOLEAN MODE)",
+			keyword,
+		)
 	}
 
 	// 标签过滤

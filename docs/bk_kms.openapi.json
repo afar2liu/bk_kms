@@ -360,7 +360,7 @@
         ]
       }
     },
-    "/api/bookmark": {
+    "/api/v1/bookmark": {
       "post": {
         "summary": "创建书签",
         "deprecated": false,
@@ -693,19 +693,9 @@
       "post": {
         "summary": "批量导入书签(SSE流式响应)",
         "deprecated": false,
-        "description": "",
+        "description": "按照url去重，已经存在url的不重复导入",
         "tags": [],
         "parameters": [
-          {
-            "name": "generate_tag",
-            "in": "query",
-            "description": "是否自动生成tag",
-            "required": false,
-            "example": "false",
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "Accept",
             "in": "header",
@@ -728,6 +718,16 @@
                     "example": "",
                     "type": "string",
                     "format": "binary"
+                  },
+                  "create_archive": {
+                    "description": "是否创建归档, true, false\n",
+                    "example": "false",
+                    "type": "string"
+                  },
+                  "generate_tag": {
+                    "description": "是否自动生成tag",
+                    "example": "true",
+                    "type": "string"
                   }
                 }
               },
@@ -1122,7 +1122,7 @@
                         },
                         "captcha_str": {
                           "type": "string",
-                          "description": "图形验证码值"
+                          "description": "图形验证码值, 测试环境使用，线上默认为空"
                         }
                       },
                       "required": [

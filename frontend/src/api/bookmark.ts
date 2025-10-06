@@ -48,17 +48,21 @@ export function getBookmarkContent(id: number) {
  * 导入书签（SSE 流式响应）
  * @param file HTML 文件
  * @param generateTag 是否自动生成分类标签
+ * @param createArchive 是否创建归档
  * @param onProgress 进度回调
  */
 export async function importBookmarks(
   file: File,
   generateTag: boolean,
+  createArchive: boolean,
   onProgress: (event: any) => void
 ): Promise<void> {
   const formData = new FormData()
   formData.append('bookmark_file', file)
+  formData.append('generate_tag', generateTag.toString())
+  formData.append('create_archive', createArchive.toString())
 
-  const url = `/api/v1/bookmarks/import?generate_tag=${generateTag}`
+  const url = `/api/v1/bookmarks/import`
   const token = localStorage.getItem('bk_kms_token')
 
   const response = await fetch(url, {

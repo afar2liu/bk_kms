@@ -31,9 +31,14 @@
 
       <!-- 选项 -->
       <div v-if="!importing" class="options">
-        <a-checkbox v-model="generateTag">
-          自动将文件夹名称作为标签
-        </a-checkbox>
+        <a-space direction="vertical" size="medium">
+          <a-checkbox v-model="generateTag">
+            自动将文件夹名称作为标签
+          </a-checkbox>
+          <a-checkbox v-model="createArchive">
+            创建归档（自动获取网页内容）
+          </a-checkbox>
+        </a-space>
       </div>
 
       <!-- 导入进度 -->
@@ -115,6 +120,7 @@ const modalVisible = computed({
 })
 
 const generateTag = ref(true)
+const createArchive = ref(false)
 const importing = ref(false)
 const completed = ref(false)
 const progressPercent = ref(0)
@@ -151,7 +157,7 @@ async function handleUpload(option: any) {
   progressStatus.value = 'normal'
 
   try {
-    await importBookmarks(file, generateTag.value, handleProgress)
+    await importBookmarks(file, generateTag.value, createArchive.value, handleProgress)
   } catch (error: any) {
     Message.error(error.message || '导入失败')
     importing.value = false
