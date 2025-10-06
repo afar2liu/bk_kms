@@ -3,8 +3,10 @@ module bk_kms
 go 1.25.1
 
 require (
+	github.com/PuerkitoBio/goquery v1.8.1
 	github.com/dchest/captcha v1.1.0
 	github.com/gin-gonic/gin v1.9.1
+	github.com/go-shiori/go-readability v0.0.0-20231029095239-6b97d5aba789
 	github.com/golang-jwt/jwt/v4 v4.5.2
 	go.uber.org/zap v1.24.0
 	gopkg.in/yaml.v3 v3.0.1
@@ -13,6 +15,7 @@ require (
 )
 
 require (
+	github.com/andybalholm/cascadia v1.3.2 // indirect
 	github.com/bytedance/sonic v1.9.1 // indirect
 	github.com/chenzhuoyu/base64x v0.0.0-20221115062448-fe3a3abad311 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.2 // indirect
@@ -20,8 +23,10 @@ require (
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
 	github.com/go-playground/validator/v10 v10.14.0 // indirect
+	github.com/go-shiori/dom v0.0.0-20210627111528-4e4722cd0d65 // indirect
 	github.com/go-sql-driver/mysql v1.7.0 // indirect
 	github.com/goccy/go-json v0.10.2 // indirect
+	github.com/gogs/chardet v0.0.0-20211120154057-b7413eaefb8f // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect

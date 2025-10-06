@@ -36,6 +36,8 @@ func InitRouter() *gin.Engine {
 		v1 := api.Group("/v1")
 		{
 			v1.PUT("/tag/:id", tagController.Update)
+			// 书签导入（SSE 流式响应）
+			v1.POST("/bookmarks/import", bookmarkController.Import)
 		}
 	}
 
